@@ -1,7 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define endl '\n'
+
 int main(int argc, char *argv[]) {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     string infile = (argc >= 2) ? argv[1] : "input/1.in";
     ifstream inputFile(infile);
 
@@ -11,33 +16,35 @@ int main(int argc, char *argv[]) {
     }
 
     string line;
-    vector<int> LEFT, RIGHT;
-    unordered_map<int, int> RC;
+    vector<int> l, r;
+    unordered_map<int, int> mp;
 
     while (getline(inputFile, line)) {
         stringstream ss(line);
-        int l, r;
-        ss >> l >> r;
-        LEFT.push_back(l);
-        RIGHT.push_back(r);
-        RC[r]++;
+        int left, right;
+        ss >> left >> right;
+        l.push_back(left);
+        r.push_back(right);
+        mp[right]++;
     }
 
     inputFile.close();
 
-    sort(LEFT.begin(), LEFT.end());
-    sort(RIGHT.begin(), RIGHT.end());
-    int p1 = 0;
-    for (size_t i = 0; i < LEFT.size(); ++i) {
-        p1 += abs(RIGHT[i] - LEFT[i]);
-    }
-    cout << p1 << endl;
+    sort(l.begin(), l.end());
+    sort(r.begin(), r.end());
 
+    // Part 1
+    int p1 = 0;
+    for (int i = 0; i < l.size(); ++i) 
+        p1 += abs(r[i] - l[i]);
+    
+    cout << "Ans 1: " <<  p1 << endl;
+
+    // Part 2
     int p2 = 0;
-    for (int l : LEFT) {
-        p2 += l * RC[l];
-    }
-    cout << p2 << endl;
+    for (int left : l) p2 += left * mp[left];
+    
+    cout << "Ans 2: " << p2 << endl;
 
     return 0;
 }
