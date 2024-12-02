@@ -1,18 +1,41 @@
 import fs from "fs"
 
-function isSafe(arr) {
-  const incOrdec =
-    arr.join(",") ===
-      arr
-        .slice()
-        .sort((a, b) => a - b)
-        .join(",") ||
-    arr.join(",") ===
-      arr
-        .slice()
-        .sort((a, b) => b - a)
-        .join(",")
+function ms(arr) {
+  if (arr.length <= 1) return arr
+  const mid = Math.floor(arr.length / 2)
+  const l = ms(arr.slice(0, mid))
+  const r = ms(arr.slice(mid))
 
+  return merge(l, r)
+}
+
+function merge(l, r) {
+  let res = []
+  let i = 0, j = 0
+
+  while (i < l.length && j < r.length) {
+    if (l[i] < r[j]) {
+      res.push(l[i])
+      i++ 
+    } else {
+      res.push(r[j])
+      j++
+    }
+  }
+
+  return res.concat(l.slice(i)).concat(r.slice(j))
+}
+
+function isIncorDec(arr) {
+  const orig = arr.join(",")
+  const asc = ms(arr).join(",")
+  const desc = ms(arr).reverse().join(",")
+
+  return orig == asc || orig == desc
+}
+
+function isSafe(arr) {
+  const incOrdec = isIncorDec(arr)
   let ok = true
 
   for (let i = 0; i < arr.length - 1; i++) {
@@ -48,8 +71,8 @@ fs.readFile("input/2.in", "utf8", (err, data) => {
     // part 2
     let safe = false
     for (let j = 0; j < arr.length; j++) {
-        const arr2 = arr.slice(0, j).concat(arr.slice(j + 1))
-        if (isSafe(arr2)) safe = true
+      const arr2 = arr.slice(0, j).concat(arr.slice(j + 1))
+      if (isSafe(arr2)) safe = true
     }
 
     if (safe) p2++
