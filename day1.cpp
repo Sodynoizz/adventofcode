@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < l.size(); ++i) 
         p1 += abs(r[i] - l[i]);
     
-    cout << "Ans 1: " <<  p1 << endl;
+    cout << "Ans 1: " << p1 << endl;
 
     // Part 2
     int p2 = 0;
