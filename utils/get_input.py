@@ -33,3 +33,5 @@ output_path = os.path.join(output_dir, f"{args.day}.in")
 
 with open(output_path, "w") as f:
     f.write(output.rstrip("\n"))
+    f.close()
+    print(f"Input for day {args.day} saved to directory {output_path}.")
