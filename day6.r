@@ -54,5 +54,5 @@ for (obst_row in seq_len(rows)) { #nolint
   }
 }
 
-pr(p1)
-pr(p2)
+print(p1, "\n")
+print(p2, "\n")
