@@ -2,7 +2,6 @@ fn <- if (length(commandArgs(TRUE)) >= 1) commandArgs(TRUE)[1] else "input/6.in"
 p1 <- 0
 p2 <- 0
 
-
 data <- readLines(fn)
 grid <- strsplit(data, NULL)
 rows <- length(grid)
